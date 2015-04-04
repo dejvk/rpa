@@ -33,9 +33,11 @@ class Dispatcher {
      * Defaults to Dispatcher::renderEmptyRequest().
      */
     public function resolveContent() {
-        switch ($_GET['get']) {
+        $request = filter_input(INPUT_GET, "get", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $limit = filter_input(INPUT_GET, "limit", FILTER_SANITIZE_NUMBER_INT);
+        switch ($request) {
             case 'events':
-                $this->renderEventsRequest($_GET['limit'], true);
+                $this->renderEventsRequest($limit, true);
                 break;
             default:
                 $this->renderEmptyRequest();
@@ -52,8 +54,9 @@ class Dispatcher {
     private function renderEventsRequest($limit, $includerunning) {
         $events = $this->database->getEvents($limit, $includerunning);
         header('Content-Type: application/json');
-        foreach ($events as $event)
+        foreach ($events as $event) {
             echo json_encode($event->asArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        }
     }
 
     /**
@@ -100,8 +103,7 @@ class DatabaseConnection {
      * @throws PDOException Database error.
      * @return Event[] List of oncoming events.
      */
-    public function getEvents($limit, $includerunning = true) {
-        $limit = htmlspecialchars($limit);
+    public function getEvents($limit = 25, $includerunning = true) {
         $start = ($includerunning) ? "DATE_SUB(NOW(),INTERVAL 3 HOUR)" : "NOW()";
         $stmt = $this->conn->prepare("SELECT " . CFG::DB_COL_EVENT_NAME . " AS name, " . CFG::DB_COL_EVENT_DESC . " AS description, " . CFG::DB_COL_EVENT_START . " AS start
         FROM   " . CFG::DB_TBL_EVENT . "
