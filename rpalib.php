@@ -61,7 +61,7 @@ class Dispatcher {
      */
     private function renderEmptyRequest() {
         header('Content-Type: text/plain');
-        echo "No data requested.";
+        echo "No data requested. RPA 1.0.";
     }
 
 }
