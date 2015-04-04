@@ -110,8 +110,9 @@ class DatabaseConnection {
         WHERE  " . CFG::DB_COL_EVENT_START . " >= {$start}
         ORDER BY " . CFG::DB_COL_EVENT_START . "
         LIMIT  0, {$limit};");
-        if (!$stmt->execute())
-            throw new PDOException();
+        if (!$stmt->execute()) {
+            throw new Exception($stmt->errorInfo()[2]);
+        }
         $result = $stmt->fetchAll();
         $events = array();
         foreach ($result as $row) {
