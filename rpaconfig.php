@@ -1,14 +1,19 @@
 <?php
+
 /**
  * RPA Configuration File.
  * Unless you know what you are doing, you should never edit anything except
  * this constants.
  * 
- * @package RPA\config
  * @version 1.0
  */
 
-  class CFG {
+/**
+ * Configuration constants.
+ * Use this class to configure RPA to your usage or taste.
+ */
+class CFG {
+
     /** @var string Database hostname as URL or IP. */
     const DB_HOST = "";
 
@@ -20,19 +25,20 @@
 
     /** @var string Database user password. */
     const DB_PASS = "";
-    
+
     /** @var string Database name, where tables are found. */
     const DB_NAME = "";
-    
+
     /** @var string Event table name. */
     const DB_TBL_EVENT = "";
-    
+
     /** @var string Event's name column name. */
-    const DB_COL_EVENT_NAME  = "";
+    const DB_COL_EVENT_NAME = "";
 
     /** @var string Event's description column name. */
-    const DB_COL_EVENT_DESC  = "";
+    const DB_COL_EVENT_DESC = "";
 
     /** @var string Event's start datetime column name. */
     const DB_COL_EVENT_START = "";
-  }
+
+}

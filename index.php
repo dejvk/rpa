@@ -1,4 +1,5 @@
 <?php
+
 /**
  * RPA - Roleplaying.cz API
  * Universal API for standardized export of data from
@@ -10,20 +11,20 @@
  * If you feel you can improve RPA, either post an issue on github or fork
  * repo and do what you can.
  *
- * @package RPA
  * @version 1.0
  */
 
-  require_once ( 'rpaconfig.php' );
-  require_once ( 'rpalib.php' );
+/** Loads required configuration file */
+require_once ( 'rpaconfig.php' );
+/** Loads required model library */
+require_once ( 'rpalib.php' );
 
-  
-  try {
+
+try {
     $dispatcher = new Dispatcher();
-    $dispatcher -> resolveContent();
-  }
-  catch (PDOException $e) {
+    $dispatcher->resolveContent();
+} catch (PDOException $e) {
     header('Content-Type: text/plain');
     echo "Data source unavailable: " . $e;
-  }
+}
   
