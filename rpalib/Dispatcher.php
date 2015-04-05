@@ -25,10 +25,9 @@ class Dispatcher {
      */
     public function resolveContent() {
         $request = filter_input(INPUT_GET, "get", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $limit = filter_input(INPUT_GET, "limit", FILTER_SANITIZE_NUMBER_INT);
         switch ($request) {
             case 'events':
-                $this->renderEventsRequest($limit, true);
+                $this->renderEventsRequest(true);
                 break;
             default:
                 $this->renderEmptyRequest();
@@ -42,8 +41,8 @@ class Dispatcher {
      * @param bool $includerunning Determines whether already running events
      * should be included in output.
      */
-    private function renderEventsRequest($limit, $includerunning) {
-        $events = $this->database->getEvents($limit, $includerunning);
+    private function renderEventsRequest($includerunning) {
+        $events = $this->database->getEvents($includerunning);
         header('Content-Type: application/json');
         foreach ($events as $event) {
             echo json_encode($event->asArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);

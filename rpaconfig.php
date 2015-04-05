@@ -1,5 +1,7 @@
 <?php
 
+namespace rpa;
+
 /**
  * RPA Configuration File.
  * Unless you know what you are doing, you should never edit anything except

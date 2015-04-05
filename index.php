@@ -1,5 +1,7 @@
 <?php
 
+namespace rpa;
+
 /**
  * RPA - Roleplaying.cz API
  * Universal API for standardized export of data from
@@ -15,16 +17,11 @@
  */
 /** Loads required configuration file */
 require_once ( 'rpaconfig.php' );
+/** Loads required model library */
+require_once ( 'rpalib/Dispatcher.php' );
+require_once ( 'rpalib/DatabaseConnection.php' );
+require_once ( 'rpalib/Event.php' );
 
-/** Autoloading classes */
-function __autoload($className) {
-    $dirs = array('rpalib');
-    foreach ($dirs as $dir) {
-        if (file_exists($dir . '/' . $className . '.php')) {
-            include_once $dir . '/' . $className . '.php';
-        }
-    }
-}
 
 try {
     $dispatcher = new Dispatcher();
