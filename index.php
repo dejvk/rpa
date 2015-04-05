@@ -13,12 +13,18 @@
  *
  * @version 1.0
  */
-
 /** Loads required configuration file */
 require_once ( 'rpaconfig.php' );
-/** Loads required model library */
-require_once ( 'rpalib.php' );
 
+/** Autoloading classes */
+function __autoload($className) {
+    $dirs = array('rpalib');
+    foreach ($dirs as $dir) {
+        if (file_exists($dir . '/' . $className . '.php')) {
+            include_once $dir . '/' . $className . '.php';
+        }
+    }
+}
 
 try {
     $dispatcher = new Dispatcher();
